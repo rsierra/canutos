@@ -3,10 +3,16 @@ defmodule Canutos.RoomChannel do
 
   def join("room:lobby", payload, socket) do
     if authorized?(payload) do
+      send(self, :after_join)
       {:ok, %{user: socket.assigns.user}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
+  end
+
+  def handle_info(:after_join, socket) do
+    broadcast socket, "new_user", %{user: socket.assigns.user}
+    {:noreply, socket}
   end
 
   # Channels can be used in a request/response fashion
