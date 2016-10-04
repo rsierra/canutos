@@ -2,7 +2,7 @@ defmodule Canutos.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", Canutos.RoomChannel
+  channel "room:*", Canutos.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
