@@ -15,4 +15,9 @@
     <ul id="users-list">
     </ul>
   </div>
+  <div class="col-lg-9">
+    <h4>Chistacos:</h4>
+    <ul id="jokes-list">
+    </ul>
+  </div>
 </div>
