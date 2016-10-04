@@ -12,6 +12,7 @@ defmodule Canutos do
       supervisor(Canutos.Endpoint, []),
       # Start your own worker by calling: Canutos.Worker.start_link(arg1, arg2, arg3)
       # worker(Canutos.Worker, [arg1, arg2, arg3]),
+      supervisor(Canutos.Presence, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

@@ -7,6 +7,9 @@ let Room = {
       .receive("ok", resp => {
         console.log("Joined successfully", resp);
         $('#current-user').html(resp.user)
+        $.each( resp.users, function( key, value ) {
+          users_list.append(`<li>${key}</li>`)
+        })
       })
       .receive("error", resp => { console.log("Unable to join", resp); })
 

@@ -1,16 +1,18 @@
 defmodule Canutos.RoomChannel do
   use Canutos.Web, :channel
+  alias Canutos.Presence
 
   def join("room:lobby", payload, socket) do
     if authorized?(payload) do
       send(self, :after_join)
-      {:ok, %{user: socket.assigns.user}, socket}
+      {:ok, %{user: socket.assigns.user, users: Presence.list(socket)}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
   end
 
   def handle_info(:after_join, socket) do
+    Presence.track(socket, socket.assigns.user, %{})
     broadcast socket, "new_user", %{user: socket.assigns.user}
     {:noreply, socket}
   end
