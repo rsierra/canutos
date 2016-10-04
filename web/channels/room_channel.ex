@@ -26,12 +26,21 @@ defmodule Canutos.RoomChannel do
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (room:lobby).
   def handle_in("shout", payload, socket) do
-    broadcast socket, "shout", payload
+    Task.start_link(fn -> new_joke(socket) end)
     {:noreply, socket}
   end
 
   # Add authorization logic here as required.
   defp authorized?(_payload) do
     true
+  end
+
+  defp new_joke(socket) do
+    HTTPotion.start
+    case HTTPotion.get("https://polg22o2pc.execute-api.eu-west-1.amazonaws.com/prod") do
+      %HTTPotion.Response{body: response, status_code: 200} ->
+        broadcast socket, "shout", %{ user: socket.assigns.user, message: response }
+      _ -> nil
+    end
   end
 end

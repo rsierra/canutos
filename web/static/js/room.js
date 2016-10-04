@@ -2,6 +2,7 @@ let Room = {
   init(socket) {
     let channel = socket.channel("room:lobby", {})
     let users_list = $('#users-list')
+    let jokes_list = $('#jokes-list')
 
     channel.join()
       .receive("ok", resp => {
@@ -15,6 +16,15 @@ let Room = {
 
     channel.on("new_user", payload => {
       users_list.append(`<li>${payload.user}</li>`)
+    })
+
+    channel.on("shout", payload => {
+      jokes_list.append(`<li>${payload.user}: ${payload.message}</li>`)
+    })
+
+    $(document).on('click', '#new-joke', function (e) {
+      e.preventDefault()
+      channel.push("shout")
     })
   }
 }
