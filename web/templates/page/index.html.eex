@@ -8,3 +8,11 @@
     <h4>¡Hola! Estas conectado como <span id="current-user"></span></h4>
   </div>
 </div>
+
+<div class="row marketing">
+  <div class="col-lg-3">
+    <h4>Usuarios conectados</h4>
+    <ul id="users-list">
+    </ul>
+  </div>
+</div>
