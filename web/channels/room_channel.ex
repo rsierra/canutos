@@ -3,7 +3,7 @@ defmodule Canutos.RoomChannel do
 
   def join("room:lobby", payload, socket) do
     if authorized?(payload) do
-      {:ok, socket}
+      {:ok, %{user: socket.assigns.user}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
